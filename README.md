@@ -3,7 +3,8 @@
 Audio to text, entirely on your machine.
 
 Stribe is a desktop app that turns a recording into a transcript using OpenAI
-Whisper running locally. Pick a file, press **Transcribe**, then copy the text
+Whisper running locally. The mark is a five-pointed star whose lower-left leg
+is a fountain pen nib — star for Starget, nib for the scribe. Pick a file, press **Transcribe**, then copy the text
 or save it as a `.txt`. Nothing is uploaded and no API key is needed.
 
 Built on the **Stargit Solutions** design system: a four-tier dark surface
@@ -13,14 +14,31 @@ display and Inter for body copy.
 ## Install
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File install.ps1
+powershell -ExecutionPolicy Bypass -File install.ps1          # installs to %LOCALAPPDATA%
+powershell -ExecutionPolicy Bypass -File install.ps1 -InPlace # runs from this folder (development)
 ```
 
-The installer checks Python and the dependencies, then puts a **Stribe**
-shortcut on your Desktop and in the Start menu (with the app icon, not the
-generic Python one). It also clears out shortcuts from the old name.
+The default install copies the app to `%LOCALAPPDATA%\Programs\Stribe`, creates
+Desktop and Start menu shortcuts, and registers Stribe in Windows **Installed
+apps** so it uninstalls the normal way. `-InPlace` skips the copy and points the
+shortcuts at this working copy instead - use that while developing.
 
-Requires Python 3.10+ on `PATH`.
+Requires Python 3.9+ on `PATH`; the installer offers to install it via winget
+if it is missing.
+
+## Sharing it
+
+```powershell
+python build_bundle.py
+```
+
+Produces `dist/Stribe-<version>-windows.zip` (~32 MB) containing the app, its
+assets and fonts, the bundled ffmpeg, and a double-clickable
+`Install Stribe.bat`. Send that zip to anyone on Windows; they extract it and
+run the installer. `README-bundle.md` ships inside as their `README.md`.
+
+The bundle deliberately leaves out the design concepts, asset build scripts and
+the sample recording.
 
 ## Use
 
@@ -60,10 +78,13 @@ point — so start with a smaller model if you are unsure.
 | `widgets.py` | Dark UI toolkit — rounded cards, gradient buttons, shimmer bar |
 | `build_assets.py` | Turns the generated art into `logo.png`, `hero.png`, `stribe.ico` |
 | `build_fonts.py` | Cuts static weights from the variable brand fonts |
-| `install.ps1` | Creates the Desktop / Start menu shortcuts |
+| `install.ps1` | Installer: copies files, shortcuts, Installed-apps entry |
+| `uninstall.ps1` | Removes all of the above, keeps downloaded models |
+| `build_bundle.py` | Packages the shareable zip into `dist/` |
 | `Stribe.bat` | Launches the app directly, no shortcut needed |
 | `transcribe.py` | The original command-line version |
 | `assets/` | Icon, logo, backdrop and the bundled fonts |
+| `assets/concepts/` | Logo exploration; not shipped in the bundle |
 | `ffmpeg.exe` | Bundled decoder; the app puts it on `PATH` at startup |
 
 The app is a plain Tk application, so it has no rounded corners or gradients of

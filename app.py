@@ -36,6 +36,8 @@ import theme as T                                             # noqa: E402
 import widgets as W                                           # noqa: E402
 
 APP_NAME = "Stribe"
+APP_ID = "StargitSolutions.Stribe"     # taskbar identity, see _claim_app_identity
+VERSION = "1.0.0"
 TAGLINE = "Audio to text, entirely on your machine"
 
 AUDIO_TYPES = [
@@ -534,6 +536,20 @@ class StribeApp(tk.Frame):
 
 
 # =============================================================================
+def _claim_app_identity() -> None:
+    """Tell Windows this process is Stribe, not Python.
+
+    Without an explicit AppUserModelID the taskbar inherits pythonw.exe's
+    identity, so the app shows the generic Python icon and groups under it.
+    """
+    if sys.platform != "win32":
+        return
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_ID)
+    except Exception:                                # noqa: BLE001
+        pass
+
+
 def _enable_dpi_awareness() -> None:
     """Render crisply on scaled displays instead of being bitmap-stretched."""
     if sys.platform != "win32":
@@ -588,6 +604,7 @@ def _place_window(root: tk.Tk, *, width: int, height: int) -> None:
 
 
 def main() -> None:
+    _claim_app_identity()
     _enable_dpi_awareness()
     T.load_fonts()
 
