@@ -1,3 +1,26 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Build output
 dist/
+build/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Windows / macOS shell noise
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Transcripts produced by running the app locally
+*.txt
+!requirements.txt
+!assets/fonts/OFL-*.txt

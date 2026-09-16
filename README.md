@@ -3,13 +3,13 @@
 Audio to text, entirely on your machine.
 
 Stribe is a desktop app that turns a recording into a transcript using OpenAI
-Whisper running locally. The mark is a five-pointed star whose lower-left leg
-is a fountain pen nib — star for Starget, nib for the scribe. Pick a file, press **Transcribe**, then copy the text
+Whisper running locally. Pick a file, press **Transcribe**, then copy the text
 or save it as a `.txt`. Nothing is uploaded and no API key is needed.
 
 Built on the **Stargit Solutions** design system: a four-tier dark surface
 stack, the electric blue → indigo → cyan accent gradient, Space Grotesk for
-display and Inter for body copy.
+display and Inter for body copy. The mark is a five-pointed star whose
+lower-left leg is a fountain pen nib — star for Starget, nib for the scribe.
 
 ## Install
 
